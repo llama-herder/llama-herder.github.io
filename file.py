@@ -16,11 +16,15 @@ while (1):
     red_only=np.int16(red)-np.int16(green)-np.int16(blue)
     
     #limits matrix to standard color range
-    red_only[red_only<0]=0
-    red_only[red_only>255]=255
+    red_only[red_only<50]=0
+    red_only[red_only>=50]=255
+    #alter value in brackets to adjust noise in image
 
     #sets matrix back to image quality
     red_only=np.uint8(red_only)
+
+    #begin adding mask
+    _,labels=cv2.connectedComponents(red_only,4)
 
     #displays windows
     cv2.imshow('Frame', frame)
